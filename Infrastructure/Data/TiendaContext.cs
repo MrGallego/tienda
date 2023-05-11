@@ -15,7 +15,21 @@ namespace Infrastructure.Data
             
         }
 
+        public DbSet<Tienda> Tiendas { get; set; }
         public DbSet<Producto> Productos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Producto>()
+            .Property(p => p.Valor)
+            .HasColumnType("decimal(18,4)");
+
+            modelBuilder.Entity<Producto>()
+             .HasOne(p => p.Tienda)
+             .WithMany(t => t.Productos)
+             .HasForeignKey(p => p.TiendaId)
+             .IsRequired();
+        }
 
     }
 }
