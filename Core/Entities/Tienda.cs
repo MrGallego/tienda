@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class Tienda
+    public class Tienda:BaseEntity
     {
-        public int Id { get; set; }
         public string Nombre { get; set; }
         public DateTime FechaApertura { get; set; }
         public List<Producto> Productos { get; set; }
