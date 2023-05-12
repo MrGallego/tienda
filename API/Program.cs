@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.ConfigureCors();
+builder.Services.AddAplicationServices();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TiendaContext>(option =>
 {
