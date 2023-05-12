@@ -17,5 +17,21 @@ namespace Infrastructure.Repositories
                 .OrderByDescending(p => p.Valor)
                 .Take(cant).ToListAsync();
         }
+
+        public override async Task<Producto> GetByIdAsync(int id)
+        {
+            return await _context.Productos
+                .Include(p => p.Tienda).FirstOrDefaultAsync(p=>p.Id == id);
+        }
+
+
+        public override async Task<IEnumerable<Producto>> GetAllAsync()
+        {
+            return await _context
+                .Productos
+                .Include(t=>t.Tienda)
+                .ToListAsync();
+        }
+      
     }
 }
