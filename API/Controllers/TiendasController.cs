@@ -20,7 +20,10 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// Consultar todas la tiendas
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -30,6 +33,11 @@ namespace API.Controllers
             return _mapper.Map<List<TiendaListDto>>(tiendas);
         }
 
+        /// <summary>
+        /// Consultar tienda por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -44,7 +52,11 @@ namespace API.Controllers
             }
             return _mapper.Map<TiendaDto>(tienda);
         }
-
+        /// <summary>
+        /// Crear tienda
+        /// </summary>
+        /// <param name="tiendaAddUpdateDto"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -61,7 +73,12 @@ namespace API.Controllers
             return CreatedAtAction(nameof(Create), new { id = tiendaAddUpdateDto.Id }, tiendaAddUpdateDto);
         }
 
-
+        /// <summary>
+        /// Modificar tienda
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="tiendaAddUpdateDto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -79,7 +96,11 @@ namespace API.Controllers
             return tiendaAddUpdateDto;
         }
 
-
+        /// <summary>
+        /// Eliminar tienda
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
