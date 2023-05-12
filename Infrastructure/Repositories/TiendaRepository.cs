@@ -16,5 +16,12 @@ namespace Infrastructure.Repositories
         {
             return await _context.Productos.Where(p => p.TiendaId == tiendaId).ToListAsync();
         }
+
+
+        public override async Task<IEnumerable<Tienda>> GetAllAsync()
+        {
+            return await _context.Tiendas.Include(t => t.Productos).ToListAsync();
+
+        }
     }
 }
