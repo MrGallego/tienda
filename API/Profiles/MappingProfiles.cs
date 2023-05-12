@@ -16,6 +16,10 @@ namespace API.Profiles
                 .MapFrom(origin =>origin.Tienda.Nombre))
                 .ReverseMap()
                 .ForMember(origin=>origin.Tienda, dest=> dest.Ignore());
+
+            CreateMap<Producto, ProductoAddUpdateDto>()
+                .ReverseMap()
+                .ForMember(origin => origin.Tienda, dest => dest.Ignore());
         }
     }
 }

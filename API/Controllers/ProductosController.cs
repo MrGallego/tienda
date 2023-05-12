@@ -46,31 +46,33 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Producto>> Create(Producto producto)
+        public async Task<ActionResult<Producto>> Create(ProductoAddUpdateDto productoAddUpdateDto)
         {
+            var producto = _mapper.Map<Producto>(productoAddUpdateDto);
             _unitOfWork.Productos.Add(producto);
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             if (producto == null) {
                 return BadRequest();
             }
-
-            return CreatedAtAction(nameof(Create), new { id = producto.Id }, producto);
+            productoAddUpdateDto.Id = producto.Id;
+            return CreatedAtAction(nameof(Create), new { id = productoAddUpdateDto.Id }, productoAddUpdateDto);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Producto>> Put(int id, [FromBody] Producto producto)
+        public async Task<ActionResult<ProductoAddUpdateDto>> Put(int id, [FromBody] ProductoAddUpdateDto productoAddUpdateDto)
         {
-            if (producto == null)
+            if (productoAddUpdateDto == null)
             {
                 return NotFound();
             }
+            var producto = _mapper.Map<Producto>(productoAddUpdateDto);
             _unitOfWork.Productos.Update(producto);
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
 
-            return producto;
+            return productoAddUpdateDto;
         }
 
         [HttpDelete("{id}")]
@@ -84,7 +86,7 @@ namespace API.Controllers
                 return NotFound();
             }
             _unitOfWork.Productos.Remove(producto);
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
 
             return NoContent();
         }

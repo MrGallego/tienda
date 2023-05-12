@@ -10,6 +10,6 @@ namespace Core.Interfaces
     {
         IProductoRepository Productos { get; }
         ITiendaRepository Tiendas { get; }
-        int Save();
+        Task<int> SaveAsync();
     }
 }
